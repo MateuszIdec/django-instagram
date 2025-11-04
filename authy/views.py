@@ -17,6 +17,10 @@ from .forms import EditProfileForm, UserRegisterForm
 from django.urls import resolve
 from comment.models import Comment
 
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def UserProfile(request, username):
     Profile.objects.get_or_create(user=request.user)
     user = get_object_or_404(User, username=username)
@@ -100,11 +104,11 @@ def follow(request, username, option):
 
 def register(request):
     if request.method == "POST":
+        # import ipdb; ipdb.set_trace()
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            # Profile.get_or_create(user=request.user)
-            username = form.cleaned_data.get('username')
+            #Profile.objects.create(user=new_user)
             messages.success(request, f'Hurray your account was created!!')
 
             # Automatically Log In The User

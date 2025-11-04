@@ -26,10 +26,7 @@
           <div class="logo">
             <h3 style="padding: 20px; font-size: 20px;">Create New Post</h3>
           </div>
-		  <!-- {{form|crispy}} -->
-          {{form.picture}} <br>
-          {{form.caption}} <br>
-          {{form.tags}} <br>
+		  {{ form.as_p }}
           <button class="form-btn" type="submit">Post</button>
           <!-- <a href="index.html" class="form-btn" type="submit">Log in</a> -->
           
