@@ -18,11 +18,11 @@ This project is built with :
 ## Installation 📦
 ### To install Django Instagram , follow these steps:
 ## 1. Clone this repository:
->'https://github.com/BurhanMohammad/Django-Instragram.git.git'
+> git clone https://github.com/MateuszIdec/django-instagram.git
 ## 2. Navigate to the project directory:
 
 ```bash
-  cd Django-Instragram
+  cd django-instragram
 ```
 ## 3 . Create a virtual environment:
 ```bash
@@ -30,28 +30,17 @@ This project is built with :
 ```
 ## 4. Activate the virtual environment:
 ```bash
-  source env/bin/activate
+  source env/scripts/activate
 ```
 ## 5. Install the project dependencies:
 ```bash
   pip install -r requirements.txt
 ```
-## 6. Create a .env file in the project root directory with the following contents:
-```bash
-  SECRET_KEY=your_secret_key
-  DEBUG=True
-  DATABASE_URL=postgres://user:password@localhost:5432/dbname
-  AWS_ACCESS_KEY_ID=your_access_key
-  AWS_SECRET_ACCESS_KEY=your_secret_access_key
-  AWS_STORAGE_BUCKET_NAME=your_bucket_name
-
-```
-#### Replace the values with your own secret key, database URL, and cloud credentials.
-## 7 . Run the server
+## 6 . Run the server
 ```bash
   python manage.py runserver
 ```
-## 8 . Go to localhost:8000
+## 7 . Go to localhost:8000
 ---
 
 ## Features of this project:
