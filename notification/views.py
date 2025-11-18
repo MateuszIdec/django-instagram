@@ -1,4 +1,3 @@
-import imp
 from django.shortcuts import render, redirect
 from notification.models import Notification
 
