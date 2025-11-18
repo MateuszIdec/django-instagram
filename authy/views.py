@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -126,3 +126,24 @@ def register(request):
         'form': form,
     }
     return render(request, 'sign-in.html', context)
+
+
+@login_required
+def get_followers(request):
+    user = request.user
+    followers = Follow.objects.filter(following=user).select_related("follower")
+
+    data = {
+        "followers": [f.follower.username for f in followers]
+    }
+    return JsonResponse(data)
+
+@login_required
+def get_following(request):
+    user = request.user
+    following = Follow.objects.filter(follower=user).select_related("following")
+
+    data = {
+        "following": [f.following.username for f in following]
+    }
+    return JsonResponse(data)

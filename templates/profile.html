@@ -88,19 +88,18 @@
                     <p><span class="profile-real-name"></span>◉ <a href="{{profile.url}}">{{profile.url}}</a></p>
                     {% endif %}
                     <br><br>
-                    <div class="profile-user-settings">
-                        <a  href="{% url 'profile' profile.user %}"  class="btns profiele-edit-btn">Posts</a>
-                        {% if request.user == profile.user %}
-                        <a  href="{% url 'profilefavourite' profile.user %}"  class="btns profeile-edit-btn">Saved</a>
-                        {% endif %}
-                    </div>
+
                 </div>
 
 
                 <div class="profile-stats">
 
                     <ul>
-                        <li><span class="profile-stat-count">{{posts_count}}</span> posts</li>
+                        <li>
+                            <a class="no-link-style" href="{% url 'profile' profile.user %}">
+                                <span class="profile-stat-count">{{ posts_count }}</span> posts
+                            </a>
+                        </li>
                         <li><span class="profile-stat-count">{{followers_count}}</span> followers</li>
                         <li><span class="profile-stat-count">{{following_count}}</span> following</li>
                     </ul>

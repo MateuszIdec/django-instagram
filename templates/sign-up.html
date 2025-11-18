@@ -22,14 +22,35 @@
           <div class="logo">
             <img src="{% static 'assets2/images/logo.png' %}" alt="logo">
           </div>
-          <!-- <input type="text" placeholder="Phone number, username, or email"> -->
-          <!-- <input type="password" placeholder="Password"> -->
-          {{form.username}}
-          {{form.email}}
-          {{form.password1}}
-          {{form.password2}}
-          <button class="form-btn" type="submit">Log in</button>
-          <!-- <a href="index.html" class="form-btn" type="submit">Log in</a> -->
+          <div>
+          {{ form.username }}
+          {% for error in form.username.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.email }}
+          {% for error in form.email.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.password1 }}
+          {% for error in form.password1.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.password2 }}
+          {% for error in form.password2.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <button class="form-btn" type="submit">Sign up</button>
           <a class="password-reset" href="#">Forgot password?</a>
         </form>
         <div class="sign-up">

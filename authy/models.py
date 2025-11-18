@@ -13,7 +13,7 @@ from post.models import Post
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="profile_pciture", null=True, default="default.jpg")
+    image = models.ImageField(upload_to="profile_picture", null=True, default="default.jpg")
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
     bio = models.CharField(max_length=200, null=True, blank=True)
@@ -21,12 +21,8 @@ class Profile(models.Model):
     url = models.URLField(max_length=200, null=True, blank=True)
     favourite = models.ManyToManyField(Post, blank=True)
 
-    
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
     def __str__(self):
-        return f'{self.user.username} - Profile'
+        return f'{self.user.username}'
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -39,11 +35,11 @@ class Profile(models.Model):
 
 
 def create_user_profile(sender, instance, created, **kwargs):
-	if created:
-		Profile.objects.create(user=instance)
+    if created:
+        Profile.objects.create(user=instance)
 
 def save_user_profile(sender, instance, **kwargs):
-	instance.profile.save()
+    instance.profile.save()
 
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(save_user_profile, sender=User)

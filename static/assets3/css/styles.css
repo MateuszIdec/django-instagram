@@ -357,3 +357,13 @@ img {
         transform: rotate(360deg);
     }
 }
+
+.no-link-style {
+    text-decoration: none;   /* bez podkreślenia */
+    color: inherit;          /* przejmuje kolor z otoczenia */
+}
+
+.no-link-style:hover {
+    text-decoration: none;   /* brak podkreślenia również po najechaniu */
+    color: inherit;          /* żadnej zmiany koloru */
+}
