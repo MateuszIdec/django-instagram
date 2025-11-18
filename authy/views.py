@@ -101,10 +101,12 @@ def follow(request, username, option):
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
+
+        print(form)
+
         if form.is_valid():
             new_user = form.save()
             # Profile.get_or_create(user=request.user)
-            username = form.cleaned_data.get('username')
             messages.success(request, f'Hurray your account was created!!')
 
             # Automatically Log In The User
@@ -123,4 +125,4 @@ def register(request):
     context = {
         'form': form,
     }
-    return render(request, 'sign-up.html', context)
+    return render(request, 'sign-in.html', context)
