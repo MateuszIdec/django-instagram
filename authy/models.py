@@ -1,13 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-import PIL 
 from PIL import Image
-from django.db.models.base import Model
-from django.db.models.fields import DateField
-from django.urls import reverse
 from django.db.models.signals import post_save
-import uuid
-from django.utils import timezone
 from post.models import Post
 
 

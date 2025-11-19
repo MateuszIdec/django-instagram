@@ -17,6 +17,7 @@ from .forms import EditProfileForm, UserRegisterForm
 from django.urls import resolve
 from comment.models import Comment
 
+@login_required
 def UserProfile(request, username):
     Profile.objects.get_or_create(user=request.user)
     user = get_object_or_404(User, username=username)
@@ -53,6 +54,8 @@ def UserProfile(request, username):
     }
     return render(request, 'profile.html', context)
 
+
+@login_required
 def EditProfile(request):
     user = request.user.id
     profile = Profile.objects.get(user__id=user)
