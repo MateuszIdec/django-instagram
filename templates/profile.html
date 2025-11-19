@@ -23,24 +23,21 @@
 
 </head>
 <body>
-
     <header>
         <br><br><br>
         <div class="container">
-
             <div class="profile">
 
                 <div class="profile-image">
-
                     <img src="{{profile.image.url}}" alt="" style="width: 200px; height: 200px;">
-
                 </div>
 
                 <div class="profile-user-settings">
+                    <div class="profile-header">
                         {% if profile.first_name %}
                         <h6 class="profile-user-name">{{profile.first_name}} {{profile.last_name}}</h6> <br>
                         {% endif %}
-                        <h5 style="font-size: 15px;" class="profile-user-name">@{{profile.user.username}}</h5>
+                        <p style="font-size: 18px">@{{profile.user.username}}</p>
 
                         {% if request.user.is_authenticated and request.user == profile.user %}
                         <a style="text-decoration: none;" href="{% url 'editprofile' %}" class="btn profile-edit-btn">Edit Profile</a>
@@ -50,10 +47,9 @@
                             <button type="submit" class="btn profile-edit-btn">Logout</button>
                         </form>
                         <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
-
-                        
                         {% endif %}
-                        <br><br>
+
+
                         {% if request.user.is_authenticated and request.user != profile.user %}
                             {% if follow_status == True %}
                                 <a href="{% url 'follow' profile.user 0 %}" class="btn profile-edit-btn" style="color: red;">Unfollow</a> <br><br>
@@ -65,17 +61,10 @@
                         {% if request.user.is_authenticated and request.user != profile.user %}
                                 <a href="{% url 'conversation' profile.user  %}" class="btn profile-edit-btn">Message</a> <br><br>
                         {% endif %}
-                        <br>
-
-                    
-                    
-                    
-                    
-
+                    </div>
                 </div>
 
-                
-
+                {% if profile.bio %}
                 <div class="profile-bio">
                     <br>
                     {% if profile.bio %}
@@ -88,12 +77,11 @@
                     <p><span class="profile-real-name"></span>◉ <a href="{{profile.url}}">{{profile.url}}</a></p>
                     {% endif %}
                     <br><br>
-
                 </div>
+                {% endif %}
 
 
                 <div class="profile-stats">
-
                     <ul>
                         <li>
                             <a class="no-link-style" href="{% url 'profile' profile.user %}">
@@ -104,7 +92,7 @@
                         <li><span class="profile-stat-count">{{following_count}}</span> following</li>
                     </ul>
                     <br>
-                    
+
                 </div>
 
             </div>
@@ -114,13 +102,13 @@
         <!-- End of container -->
 
     </header>
-    
+
     <main>
 
         <div class="container">
 
             <div class="gallery">
-                
+
                 {% for post in posts %}
                 <a href="{{post.get_absolute_url}}"><div class="gallery-item" tabindex="0">
 
@@ -137,17 +125,11 @@
 
                 </div></a>
                 {% endfor %}
-
-                
-
-                
-
-            </div>
+           </div>
             <!-- End of gallery -->
-
-
         </div>
         <!-- End of container -->
 
-    </main>
+        </main>
+</body>
     {% endblock content %}

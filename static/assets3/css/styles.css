@@ -367,3 +367,9 @@ img {
     text-decoration: none;   /* brak podkreślenia również po najechaniu */
     color: inherit;          /* żadnej zmiany koloru */
 }
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
