@@ -17,7 +17,7 @@
                                     </svg>
                                 </div>
                                 <div class="story__picture">
-                                    <img src="{{request.user.profile.image.url}}" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <img loading="lazy" src="{{request.user.profile.image.url}}" style="width: 80px; height: 80px; object-fit: cover;">
                                 </div>
                             </div>
                             <span class="story__user">@{{request.user.username}}</span>
@@ -39,7 +39,7 @@
                                     {% if post.user.profile.image %}
                                     <a href="{{post.user.profile.image.url}}" class="post__avatar">
                                         
-                                        <img src="{{post.user.profile.image.url}}" alt="User Picture">
+                                        <img loading="lazy" src="{{post.user.profile.image.url}}" alt="User Picture">
                                         
                                     </a>
                                     {% endif %}
@@ -58,9 +58,9 @@
 
                         <div class="post__content">
                             <div class="post__medias">
-                                <a href="{% url 'post-details' post.id %}"><img class="post__media" src="{{ post.picture.url }}" alt="Post Content" style="width: 700px; height: 348px; object-fit: cover;"></a>
-<!--                                <img class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
-<!--                                <img class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
+                                <a href="{% url 'post-details' post.id %}"><img loading="lazy" class="post__media" src="{{ post.picture.url }}" alt="Post Content" style="width: 700px; height: 348px; object-fit: cover;"></a>
+<!--                                <img loading="lazy" class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
+<!--                                <img loading="lazy" class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
                             </div>
                         </div>
 
@@ -95,7 +95,7 @@
                             <div class="post__infos">
                                 <div class="post__likes">
                                     <a href="#" class="post__likes-avatar">
-<!--                                        <img src="assets1/default-user.png" alt="User Picture">-->
+<!--                                        <img loading="lazy" src="assets1/default-user.png" alt="User Picture">-->
                                     </a>
 
 <!--                                    <span>Liked by <a class="post__name&#45;&#45;underline" href="#">user123</a> and <a href="#">73 others</a></span>-->
@@ -130,7 +130,7 @@
                         {% if request.user.username != user.username %}
                         <div class="side-menu__suggestion">
                             <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
-                                <img src="{{user.profile.image.url}}" alt="User Picture">
+                                <img loading="lazy" src="{{user.profile.image.url}}" alt="User Picture">
                             </a>
                             
                             <div class="side-menu__suggestion-info">
@@ -158,7 +158,7 @@
             <section class="side-menu">
                 <div class="side-menu__user-profile">
                     <a href="https://github.com/leocosta1" target="_blank" class="side-menu__user-avatar">
-                        <img src="{{ request.user.profile.image.url }}" alt="User Picture">
+                        <img loading="lazy" src="{{ request.user.profile.image.url }}" alt="User Picture">
                     </a>
                     <div class="side-menu__user-info">
                         {% if user.profile.first_name %}
@@ -181,7 +181,7 @@
                             {% if request.user.username != user.username %}
                             <div class="side-menu__suggestion">
                                 <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
-                                    <img src="{{user.profile.image.url}}" alt="User Picture">
+                                    <img loading="lazy" src="{{user.profile.image.url}}" alt="User Picture">
                                 </a>
                                 
                                 <div class="side-menu__suggestion-info">

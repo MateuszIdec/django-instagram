@@ -112,7 +112,7 @@
                 {% for post in posts %}
                 <a href="{{post.get_absolute_url}}"><div class="gallery-item" tabindex="0">
 
-                    <img src="{{ post.picture.url }}" class="gallery-image" alt="" style="width: 500px; height: 300px; object-fit: cover;">
+                    <img src="{{ post.picture.url }}" loading="lazy" class="gallery-image" alt="" style="width: 500px; height: 300px; object-fit: cover;">
 
                     <div class="gallery-item-info">
 
