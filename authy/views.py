@@ -17,6 +17,8 @@ from .forms import EditProfileForm, UserRegisterForm
 from django.urls import resolve
 from comment.models import Comment
 
+from image_master import convertImage
+
 @login_required
 def UserProfile(request, username):
     Profile.objects.get_or_create(user=request.user)
@@ -63,7 +65,7 @@ def EditProfile(request):
     if request.method == "POST":
         form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
-            profile.image = form.cleaned_data.get('image')
+            profile.image, profile.image2, profile.image3 = convertImage(form.cleaned_data.get('image'))
             profile.first_name = form.cleaned_data.get('first_name')
             profile.last_name = form.cleaned_data.get('last_name')
             profile.location = form.cleaned_data.get('location')
@@ -78,6 +80,10 @@ def EditProfile(request):
         'form':form,
     }
     return render(request, 'editprofile.html', context)
+
+# def convertImage(image):
+#     print("\n\n Converting Image... \n\n")
+#     return None, None
 
 def follow(request, username, option):
     user = request.user

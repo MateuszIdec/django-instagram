@@ -111,7 +111,7 @@
                         <div class="profile-button__border"></div>
                         <a href="{% url 'profile' request.user %}">
                             <div class="profile-button__picture">
-                                <img src="{{request.user.profile.image.url}}" alt="User Picture">
+                                <img src="{{request.user.profile.image3.url}}" alt="User Picture">
                             </div>
                         </a>
                     </button>
@@ -160,7 +160,7 @@
         <a href="{% url 'profile' request.user %}" class="navbar__button profile-button">
             <div class="profile-button__border"></div>
             <div class="profile-button__picture">
-                <img src="{{request.user.profile.image.url}}" alt="User Picture">
+                <img src="{{request.user.profile.image3.url}}" alt="User Picture">
             </div>
         </a>
     </nav>

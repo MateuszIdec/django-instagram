@@ -16,3 +16,4 @@ urlpatterns = [
     path("followers/", get_followers, name="get_followers"),
     path("following/", get_following, name="get_following"),
 ]
+ 
