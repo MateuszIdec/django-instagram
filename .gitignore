@@ -3,3 +3,5 @@
 env/
 db.sqlite3
 __pycache__/
+media/images/*
+media/user*
