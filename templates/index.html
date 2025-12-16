@@ -17,7 +17,7 @@
                                     </svg>
                                 </div>
                                 <div class="story__picture">
-                                    <img loading="lazy" src="{{request.user.profile.image2.url}}" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <img src="{{request.user.profile.image2.url}}" style="width: 80px; height: 80px; object-fit: cover;">
                                 </div>
                             </div>
                             <span class="story__user">@{{request.user.username}}</span>
@@ -39,7 +39,7 @@
                                     {% if post.user.profile.image %}
                                     <a href="{{post.user.profile.image2.url}}" class="post__avatar">
                                         
-                                        <img loading="lazy" src="{{post.user.profile.image2.url}}" alt="User Picture">
+                                        <img src="{{post.user.profile.image2.url}}" alt="User Picture">
                                         
                                     </a>
                                     {% endif %}
@@ -58,7 +58,7 @@
 
                         <div class="post__content">
                             <div class="post__medias">
-                                <a href="{% url 'post-details' post.id %}"><img loading="lazy" class="post__media" src="{{ post.picture.url }}" alt="Post Content" style="width: 700px; height: 348px; object-fit: cover;"></a>
+                                <a href="{% url 'post-details' post.id %}"><img class="post__media" src="{{ post.picture.url }}" alt="Post Content" style="width: 700px; height: 348px; object-fit: cover;"></a>
 <!--                                <img loading="lazy" class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
 <!--                                <img loading="lazy" class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
                             </div>
@@ -130,7 +130,7 @@
                         {% if request.user.username != user.username %}
                         <div class="side-menu__suggestion">
                             <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
-                                <img loading="lazy" src="{{user.profile.image2.url}}" alt="User Picture">
+                                <img src="{{user.profile.image2.url}}" alt="User Picture">
                             </a>
                             
                             <div class="side-menu__suggestion-info">
@@ -158,7 +158,7 @@
             <section class="side-menu">
                 <div class="side-menu__user-profile">
                     <a href="https://github.com/leocosta1" target="_blank" class="side-menu__user-avatar">
-                        <img loading="lazy" src="{{ request.user.profile.image2.url }}" alt="User Picture">
+                        <img src="{{ request.user.profile.image2.url }}" alt="User Picture">
                     </a>
                     <div class="side-menu__user-info">
                         {% if user.profile.first_name %}
@@ -180,7 +180,7 @@
                         {% for user in not_followed %}
                             <div class="side-menu__suggestion">
                                 <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
-                                    <img loading="lazy" src="{{user.profile.image2.url}}" alt="User Picture">
+                                    <img src="{{user.profile.image2.url}}" alt="User Picture">
                                 </a>
                                 
                                 <div class="side-menu__suggestion-info">
