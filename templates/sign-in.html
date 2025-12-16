@@ -20,6 +20,7 @@
           <div class="logo">
             <img src="{% static 'assets2/images/logo.png' %}" alt="logo">
           </div>
+            {% csrf_token %}
           <!-- <input type="text" placeholder="Phone number, username, or email"> -->
           <!-- <input type="password" placeholder="Password"> -->
           {{form}}
