@@ -1,4 +1,6 @@
 from django import forms
+from django.views.decorators.csrf import csrf_exempt
+
 from authy.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -33,7 +35,7 @@ class EditProfileForm(forms.ModelForm):
         fields = ['image', 'first_name', 'last_name', 'bio', 'url', 'location']
 
 
-
+@csrf_exempt
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'prompt srch_explore'}), max_length=50, required=True)
     # username = forms.EmailInput(widget=forms.TextInput(attrs={'placeholder': 'Username'}), max_length=50, required=True)
