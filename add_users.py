@@ -32,7 +32,7 @@ def add_users(users_number, users):
     locations = users["locations"]
 
 
-    for i in range(int(users_number)):
+    for i in range(users_number):
         firstName = random.choice(firstNames)
         lastName = random.choice(lastNames)
         bio = random.choice(bios)
@@ -46,7 +46,7 @@ def add_users(users_number, users):
         if created:
             user.set_password("test")
             user.save()
-            print(f"✔ User {user.username} created")
+            print(f"User {user.username} created")
 
         profile, p_created = Profile.objects.get_or_create(user=user)
 
@@ -60,7 +60,7 @@ def add_users(users_number, users):
         profile.save()
 
         if p_created:
-            print(f"✔ Profile for {user.username} created")
+            print(f"Profile for {user.username} created")
 
     print("✅ JSON seed completed")
     return users
@@ -81,9 +81,8 @@ def add_follows(all_users, max_follows_per_user=10):
             Follow.objects.get_or_create(follower=user, following=target_user)
 
 
-def add_posts(users, data):
+def add_posts(users, data, posts_per_user):
     images_folder = "images"
-    posts_per_user=10
     # Pełna ścieżka do folderu images
     folder_path = os.path.join(django.conf.settings.MEDIA_ROOT, images_folder)
     
@@ -91,7 +90,7 @@ def add_posts(users, data):
     image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
     
     if not image_files:
-        print("❌ Brak obrazów w folderze", folder_path)
+        print("Brak obrazów w folderze", folder_path)
         return
 
     for user in users:
@@ -112,21 +111,55 @@ def add_posts(users, data):
                 )
                 
                 # Opcjonalnie przypisanie losowych tagów, jeśli masz Tag model
-                # tags = Tag.objects.all()
-                # selected_tags = random.sample(list(tags), k=random.randint(0, 3))
-                # post.tags.set(selected_tags)
+                tag_count = random.randint(0, 5)
 
-            print(f"✔ Post created for {user.username} with image {image_name}")
+                # losujemy stringi
+                tag_names = random.sample(data["tags"], k=tag_count)
+                
+                # zamieniamy stringi na obiekty Tag
+                tag_objects = []
+                for name in tag_names:
+                    tag, _ = Tag.objects.get_or_create(title=name)
+                    tag_objects.append(tag)
+
+                # przypisujemy do posta
+                post.tags.set(tag_objects)
+
+            print(f"Post created for {user.username} with image {image_name}")
+
+def delete_users():
+    users = User.objects.all()
+    count = users.count()
+    users.delete()
+
+def make_admin():
+    username = "admin"
+    password = "admin"
+
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_superuser(
+            username=username,
+            email="admin@example.com",
+            password=password
+        )
+        print("Admin user created (admin / admin)")
+    else:
+        print("Admin user already exists")
 
 def main():
+    delete_users()
+    make_admin()
+
+    usersNumber = int(sys.argv[1])
+    posts_per_user = int(sys.argv[2])
     data = get_data()
 
-    add_users(sys.argv[1], data)
+    add_users(usersNumber, data)
 
-    all_users = list(User.objects.all())
-    
-    add_follows(all_users)
-    add_posts(all_users, data)
+    users = list(User.objects.filter(is_superuser=False))
+
+    add_follows(users)
+    add_posts(users, data, posts_per_user)
 
 
 
