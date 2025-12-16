@@ -86,37 +86,45 @@ def add_posts(users, data):
     posts_per_user=10
     # Pełna ścieżka do folderu images
     folder_path = os.path.join(django.conf.settings.MEDIA_ROOT, images_folder)
-    
-    # Lista wszystkich plików w folderze
-    image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
-    
-    if not image_files:
-        print("❌ Brak obrazów w folderze", folder_path)
+
+    try:
+        # Lista wszystkich plików w folderze
+        if os.path.exists(folder_path):
+            image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+        else:
+            image_files = []
+
+        if not image_files:
+            print("❌ Brak obrazów w folderze", folder_path)
+            return
+
+
+        for user in users:
+            num_posts = random.randint(1, posts_per_user)
+            for _ in range(num_posts):
+                image_name = random.choice(image_files)
+                image_path = os.path.join(folder_path, image_name)
+
+                caption = random.choice(data["captions"])
+
+                # Tworzymy post
+                with open(image_path, "rb") as f:
+                    post = Post.objects.create(
+                        user=user,
+                        caption=caption,
+                        picture=django.core.files.File(f, name=image_name),
+                        likes=random.randint(0, 100)  # losowe polubienia
+                    )
+
+                    # Opcjonalnie przypisanie losowych tagów, jeśli masz Tag model
+                    # tags = Tag.objects.all()
+                    # selected_tags = random.sample(list(tags), k=random.randint(0, 3))
+                    # post.tags.set(selected_tags)
+
+                print(f"✔ Post created for {user.username} with image {image_name}")
+    except Exception as e:
+        print(e)
         return
-
-    for user in users:
-        num_posts = random.randint(1, posts_per_user)
-        for _ in range(num_posts):
-            image_name = random.choice(image_files)
-            image_path = os.path.join(folder_path, image_name)
-            
-            caption = random.choice(data["captions"])
-            
-            # Tworzymy post
-            with open(image_path, "rb") as f:
-                post = Post.objects.create(
-                    user=user,
-                    caption=caption,
-                    picture=django.core.files.File(f, name=image_name),
-                    likes=random.randint(0, 100)  # losowe polubienia
-                )
-                
-                # Opcjonalnie przypisanie losowych tagów, jeśli masz Tag model
-                # tags = Tag.objects.all()
-                # selected_tags = random.sample(list(tags), k=random.randint(0, 3))
-                # post.tags.set(selected_tags)
-
-            print(f"✔ Post created for {user.username} with image {image_name}")
 
 def main():
     data = get_data()
