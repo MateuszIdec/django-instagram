@@ -1,0 +1,22 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://web:8000/"
+      ],
+      "chromePath": "/usr/bin/chromium",
+      "numberOfRuns": 3,
+      "settings": {
+        "preset": "desktop",
+        "chromeFlags": ["--no-sandbox", "--headless", "--disable-gpu"]
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "/app/reports"
+    }
+  }
+}

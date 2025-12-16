@@ -1,8 +1,6 @@
 services:
   web:
     build: .
-    command: /entrypoint.sh
-    restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
@@ -10,6 +8,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
     volumes:
       - .:/app
 
@@ -24,9 +27,18 @@ services:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 5s
       timeout: 3s
-      retries: 5
+      retries: 3
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  lighthouse:
+    build: ./lighthouse
+    depends_on:
+      web:
+        condition: service_healthy
+    volumes:
+      - ./lighthouse/lighthouserc.json:/app/lighthouserc.json
+      - ./lighthouse/reports:/app/reports
 
 volumes:
   postgres_data:

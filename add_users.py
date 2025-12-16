@@ -17,8 +17,6 @@ User = get_user_model()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 JSON_PATH = os.path.join(BASE_DIR, "data_json/users.json")
 
-
-
 def get_data():
     with open(JSON_PATH, "r", encoding="utf-8") as f:
         users = json.load(f)
@@ -46,7 +44,7 @@ def add_users(users_number, users):
         if created:
             user.set_password("test")
             user.save()
-            print(f"✔ User {user.username} created")
+            print(f"User {user.username} created")
 
         profile, p_created = Profile.objects.get_or_create(user=user)
 
@@ -60,9 +58,9 @@ def add_users(users_number, users):
         profile.save()
 
         if p_created:
-            print(f"✔ Profile for {user.username} created")
+            print(f"Profile for {user.username} created")
 
-    print("✅ JSON seed completed")
+    print("JSON seed completed")
     return users
 
 def add_follows(all_users, max_follows_per_user=10):
