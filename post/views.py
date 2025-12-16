@@ -24,7 +24,11 @@ def index(request):
     user = request.user
     all_users = User.objects.all()
     follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
+    not_followed = User.objects.exclude(
+        following__follower=user
+    ).exclude(id=user.id) 
 
+    
     profile = Profile.objects.all()
 
     posts = Stream.objects.filter(user=user)
@@ -50,6 +54,7 @@ def index(request):
         'follow_status': follow_status,
         'profile': profile,
         'all_users': all_users,
+        'not_followed': not_followed,
         # 'users_paginator': users_paginator,
     }
     return render(request, 'index.html', context)

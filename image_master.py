@@ -1,36 +1,39 @@
-# Tutaj jest skrypt na przetwarzanie obrazów
-
 from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
 import os
 
-# To zmieniamy ewentualnie
-filename = 'example.png'
+def convertImage(image):
+    print("\n\n Converting Image... \n\n")
 
-img = Image.open(filename)
-img = img.convert("RGB")
+    img = Image.open(image)
+    img = img.convert("RGB")
 
-source_size = img.size
-source_size_max = max(source_size)
-source_size_min = min(source_size)
+    source_size = img.size
+    source_size_max = max(source_size)
+    source_size_min = min(source_size)
+    source_proportions: float = float(source_size_max) / source_size_min
 
-source_proportions:float = float(source_size_max) / source_size_min
+    resolutions = [1920, 1280, 640]
+    imgs = []
 
-resolutions = [1920, 1280, 640]
-sizes = []
+    for r in resolutions:
+        crop_ratio = source_size_max / r
+        new_size = (int(source_size[0] * crop_ratio), int(source_size[1] * crop_ratio))
 
-print(source_size)
-print(source_proportions)
+        new_img = img.copy()
+        new_img = new_img.resize(new_size, Image.Resampling.LANCZOS)
 
-for r in resolutions:
-    crop_ratio = source_size_max / r
-    new_size = (int(source_size[0] * crop_ratio), int(source_size[1] * crop_ratio))
+        # zapisujemy do pamięci jako WebP
+        temp_io = BytesIO()
+        new_img.save(temp_io, format='WEBP')
 
-    print(new_size)    
+        # generujemy nazwę pliku
+        base_name = os.path.splitext(os.path.basename(getattr(image, 'name', 'image')))[0]
+        new_name = f"{base_name}_{new_size[0]}x{new_size[1]}.webp"
 
-    new_w = new_size[0]
-    new_h = new_size[1]
-    new_filename = f"{os.path.splitext(os.path.basename('/path/to/file.txt'))[0]}_{new_w}_{new_h}.webp"
-
-    new_img = img.copy()
-    new_img = new_img.resize(new_size, Image.Resampling.LANCZOS)
-    new_img.save(new_filename, 'webp')
+        # tworzymy ContentFile, gotowy do zapisania w ImageField
+        imgs.append(ContentFile(temp_io.getvalue(), name=new_name))
+    
+    # zwracamy dwa mniejsze obrazy (1280 i 640)
+    return imgs[2], imgs[1], imgs[0]

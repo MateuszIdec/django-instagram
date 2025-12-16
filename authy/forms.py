@@ -1,4 +1,6 @@
 from django import forms
+from django.views.decorators.csrf import csrf_exempt
+
 from authy.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -31,7 +33,6 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'first_name', 'last_name', 'bio', 'url', 'location']
-
 
 
 class UserRegisterForm(UserCreationForm):

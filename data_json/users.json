@@ -1,0 +1,62 @@
+{
+  "firstNames": ["Anna", "Piotr", "Maria", "Tomasz", "Katarzyna", "Michał", "Joanna", "Jakub", "Agnieszka", "Łukasz", "Magdalena", "Paweł", "Ewa", "Marek", "Alicja", "Kamil", "Barbara", "Marcin", "Monika", "Rafał", "Natalia", "Adam", "Karolina", "Grzegorz", "Joanna", "Mateusz", "Justyna", "Łucja", "Sebastian", "Patrycja", "Damian", "Sylwia", "Marta", "Tadeusz", "Dorota", "Krzysztof", "Elżbieta", "Wojciech", "Agata", "Maciej", "Beata", "Andrzej", "Iwona", "Paula", "Henryk", "Renata", "Szymon", "Danuta", "Kacper", "Grażyna"],
+
+  "lastNames": ["Kowalska", "Nowak", "Wiśniewska", "Wójcik", "Zielińska", "Szymański", "Lewandowska", "Kamiński", "Kaczmarek", "Woźniak", "Kubiak", "Jankowski", "Mazur", "Krawczyk", "Pawlak", "Grabowski", "Górski", "Kozłowski", "Piotrowski", "Nowicki", "Sikora", "Marciniak", "Olszewski", "Wilk", "Zawadzki", "Baran", "Kaczmarek", "Stępień", "Chmielewski", "Wróbel", "Majewski", "Jaworski", "Malinowski", "Bąk", "Kaczor", "Sadowski", "Kubiak", "Czerwiński", "Sikorski", "Lis", "Marek", "Sikora", "Michalski", "Adamczyk", "Konieczny", "Tkaczyk", "Urban", "Brzeziński", "Sawicki", "Głowacki", "Zieliński"],
+
+  "bios": [
+    "Miłośniczka kawy i książek.",
+    "Programista i pasjonat gier komputerowych.",
+    "Fotografka i podróżniczka.",
+    "Fan sportu i biegania maratonów.",
+    "Kucharz amator, uwielbia gotować dla przyjaciół.",
+    "Muzyk i gitarzysta rockowy.",
+    "Pasjonatka jogi i medytacji.",
+    "Programista backend, lubi technologie chmurowe.",
+    "Miłośniczka zwierząt i adopcji psów.",
+    "Podróżnik, uwielbia góry i wspinaczkę.",
+    "Entuzjasta nowych technologii.",
+    "Miłośnik kina i teatrów.",
+    "Pasjonatka sztuki i malarstwa.",
+    "Miłośnik rowerów i aktywnego wypoczynku.",
+    "Fan literatury science-fiction.",
+    "Kolekcjoner starych płyt winylowych.",
+    "Miłośniczka kuchni włoskiej.",
+    "Programista front-end, lubi design UX/UI.",
+    "Fan sportów ekstremalnych.",
+    "Miłośniczka zwierząt domowych."
+  ],
+  "locations": [
+    "Warszawa, Polska",
+    "Kraków, Polska",
+    "Gdańsk, Polska",
+    "Poznań, Polska",
+    "Łódź, Polska",
+    "Wrocław, Polska",
+    "Lublin, Polska",
+    "Szczecin, Polska",
+    "Katowice, Polska",
+    "Białystok, Polska",
+    "Toruń, Polska",
+    "Olsztyn, Polska",
+    "Rzeszów, Polska",
+    "Częstochowa, Polska",
+    "Bydgoszcz, Polska",
+    "Radom, Polska",
+    "Kielce, Polska",
+    "Opole, Polska",
+    "Zielona Góra, Polska",
+    "Elbląg, Polska"
+  ],
+  "captions":[
+    "Piękny dzień!",
+    "Kocham programować w Pythonie.",
+    "Nowy projekt w pracy.",
+    "Oglądałem świetny film wczoraj.",
+    "Czas na relaks z książką.",
+    "Trening zakończony sukcesem!",
+    "Gotowanie to moja pasja.",
+    "Podróże kształcą i inspirują.",
+    "Spotkanie z przyjaciółmi było super.",
+    "Muzyka daje mi energię."
+  ]
+}
