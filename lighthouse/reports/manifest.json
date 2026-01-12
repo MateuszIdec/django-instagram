@@ -1,0 +1,41 @@
+[
+  {
+    "url": "http://web:8000/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/app/reports/web-_-2025_12_17_14_47_39.report.html",
+    "jsonPath": "/app/reports/web-_-2025_12_17_14_47_39.report.json",
+    "summary": {
+      "performance": 1,
+      "accessibility": 0.92,
+      "best-practices": 0.78,
+      "seo": 0.82,
+      "pwa": 0.29
+    }
+  },
+  {
+    "url": "http://web:8000/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/app/reports/web-_-2025_12_17_14_47_53.report.html",
+    "jsonPath": "/app/reports/web-_-2025_12_17_14_47_53.report.json",
+    "summary": {
+      "performance": 0.98,
+      "accessibility": 0.92,
+      "best-practices": 0.78,
+      "seo": 0.82,
+      "pwa": 0.29
+    }
+  },
+  {
+    "url": "http://web:8000/",
+    "isRepresentativeRun": true,
+    "htmlPath": "/app/reports/web-_-2025_12_17_14_47_17.report.html",
+    "jsonPath": "/app/reports/web-_-2025_12_17_14_47_17.report.json",
+    "summary": {
+      "performance": 0.99,
+      "accessibility": 0.92,
+      "best-practices": 0.78,
+      "seo": 0.82,
+      "pwa": 0.29
+    }
+  }
+]

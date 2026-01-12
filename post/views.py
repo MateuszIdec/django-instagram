@@ -15,25 +15,24 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from post.models import Post, Follow, Stream
 
+from django.core.cache import cache
 
-
-
-@login_required
+# Wywalamy login required do testów lighthouse plz
+# @login_required
 def index(request):
     user = request.user
-    user = request.user
+    key = f"index:{user.id}"
+
     all_users = User.objects.all()
     follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
     not_followed = User.objects.exclude(
         following__follower=user
-    ).exclude(id=user.id) 
-
+    ).exclude(id=user.id)    
     
     profile = Profile.objects.all()
 
     posts = Stream.objects.filter(user=user)
     group_ids = []
-
     
     for post in posts:
         group_ids.append(post.post_id)
@@ -41,6 +40,7 @@ def index(request):
     post_items = Post.objects.filter(id__in=group_ids).all().order_by('-posted')
 
     query = request.GET.get('q')
+
     if query:
         users = User.objects.filter(Q(username__icontains=query))
 
@@ -48,15 +48,20 @@ def index(request):
         page_number = request.GET.get('page')
         users_paginator = paginator.get_page(page_number)
 
+    context = cache.get(key)
 
-    context = {
-        'post_items': post_items,
-        'follow_status': follow_status,
-        'profile': profile,
-        'all_users': all_users,
-        'not_followed': not_followed,
-        # 'users_paginator': users_paginator,
-    }
+    if context is None:
+        context = {
+            'post_items': post_items,
+            'follow_status': follow_status,
+            'profile': profile,
+            'all_users': all_users,
+            'not_followed': not_followed,
+            # 'users_paginator': users_paginator,
+        }
+
+        cache.set(key, context, 300)    
+
     return render(request, 'index.html', context)
 
 
