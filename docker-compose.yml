@@ -5,11 +5,14 @@ services:
       - "8000:8000"
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/django_db
+      DJANGO_SETTINGS_MODULE: Django_Instagram.settings
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://web:8000/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
       interval: 5s
       timeout: 3s
       retries: 3
