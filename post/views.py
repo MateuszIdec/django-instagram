@@ -15,21 +15,32 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from post.models import Post, Follow, Stream
 
-
-
+from django.core.cache import cache
 
 @login_required
 def index(request):
     user = request.user
-    user = request.user
-    all_users = User.objects.all()
+
+    # <CACHE>
+    all_users = cache.get("users_all")
+
+    if all_users is None:
+        all_users = list(User.objects.all())
+        cache.set("users_all", all_users, 60 * 5) # 5 min, niby taka jest konwencja zapisywania tego...
+    # </CACHE>
+
     follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
     not_followed = User.objects.exclude(
         following__follower=user
     ).exclude(id=user.id) 
-
     
-    profile = Profile.objects.all()
+    # <CACHE>
+    profile = cache.get("profiles_all")
+
+    if profile is None:
+        profile = list(Profile.objects.all())
+        cache.set("profiles_all", profile, 60 * 5)
+    # </CACHE>
 
     posts = Stream.objects.filter(user=user)
     group_ids = []
@@ -40,14 +51,15 @@ def index(request):
         
     post_items = Post.objects.filter(id__in=group_ids).all().order_by('-posted')
 
-    query = request.GET.get('q')
-    if query:
-        users = User.objects.filter(Q(username__icontains=query))
+    # NWM CO TO ROBIŁO, ALE CHYBA NIE BYŁO POTRZEBNE
+    # query = request.GET.get('q')
 
-        paginator = Paginator(users, 6)
-        page_number = request.GET.get('page')
-        users_paginator = paginator.get_page(page_number)
+    # if query:
+        # users = User.objects.filter(Q(username__icontains=query))
 
+        # paginator = Paginator(users, 6)
+        # page_number = request.GET.get('page')
+        # users_paginator = paginator.get_page(page_number)
 
     context = {
         'post_items': post_items,
@@ -57,6 +69,7 @@ def index(request):
         'not_followed': not_followed,
         # 'users_paginator': users_paginator,
     }
+    
     return render(request, 'index.html', context)
 
 

@@ -9,7 +9,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "curl", "-f", "http://web:8000/"]
       interval: 5s
       timeout: 3s
       retries: 3
@@ -39,6 +39,12 @@ services:
     volumes:
       - ./lighthouse/lighthouserc.json:/app/lighthouserc.json
       - ./lighthouse/reports:/app/reports
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:

@@ -19,4 +19,8 @@ def main():
 
 
 if __name__ == '__main__':
+    from django.core.cache import cache
+    cache.set("test", "hello", 60)
+    cache.get("test")
+
     main()
