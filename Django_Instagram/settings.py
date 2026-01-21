@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'comment',
     'directs',
     'notification',
-    
+    "core.apps.CoreConfig"
 ]
 
 MIDDLEWARE = [
@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "core.middleware.AutoLoginMiddleware",
 ]
 
 ROOT_URLCONF = 'Django_Instagram.urls'
