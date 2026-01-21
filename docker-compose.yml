@@ -9,13 +9,8 @@ services:
       DATABASE_URL: postgres://postgres:postgres@db:5432/django_db
     depends_on:
       - db
-        # condition: service_healthy
     healthcheck:
       disable: true
-      # test: ["CMD", "curl", "-f", "http://localhost:8000/"]
-      # interval: 5s
-      # timeout: 3s
-      # retries: 3
     volumes:
       - .:/app
 
@@ -34,14 +29,25 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  lighthouse:
-    build: ./lighthouse
-    depends_on:
-      - web
-        # condition: service_healthy
-    volumes:
-      - ./lighthouse/lighthouserc.json:/app/lighthouserc.json
-      - ./lighthouse/reports:/app/reports
+#  lighthouse:
+#    build: ./lighthouse
+#    depends_on:
+#      - web
+#    volumes:
+#      - ./lighthouse/lighthouserc.json:/app/lighthouserc.json
+#      - ./lighthouse/reports:/app/reports
+
+  imgproxy:
+    image: darthsim/imgproxy:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      IMGPROXY_BIND: ":8080"
+      IMGPROXY_USE_ETAG: "true"
+      IMGPROXY_ENABLE_WEBP_DETECTION: "true"
+      IMGPROXY_ALLOWED_SOURCES: "*"
+      IMGPROXY_ALLOW_INSECURE_SOURCE: "true"
 
 volumes:
   postgres_data:

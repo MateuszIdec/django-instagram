@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load imgproxy_tags %}
 {% load static %}
 {% block content %}
     <main class="main-container">
@@ -17,7 +18,9 @@
                                     </svg>
                                 </div>
                                 <div class="story__picture">
-                                    <img loading="lazy" src="{{request.user.profile.image2.url}}" style="width: 80px; height: 80px; object-fit: cover;">
+<!--                                    <img loading="lazy" src="{{request.user.profile.image2.url}}" style="width: 80px; height: 80px; object-fit: cover;">-->
+                                    <img loading="lazy" src="{% imgproxy request.user.profile.image2.url '80x80' %}">
+
                                 </div>
                             </div>
                             <span class="story__user">@{{request.user.username}}</span>
@@ -34,19 +37,20 @@
                     {% for post in post_items %}
                     <article class="post">
                         <div class="post__header">
-                            
+
                                 <div class="post__profile">
                                     {% if post.user.profile.image %}
                                     <a href="{{post.user.profile.image2.url}}" class="post__avatar">
-                                        
-                                        <img loading="lazy" src="{{post.user.profile.image2.url}}" alt="User Picture">
-                                        
+
+<!--                                        <img loading="lazy" src="{{post.user.profile.image2.url}}" alt="User Picture">-->
+                                        <img loading="lazy" src="{% imgproxy request.user.profile.image2.url '80x80' %}">
+
                                     </a>
                                     {% endif %}
                                     <a href="{{post.user.username}}" class="post__user">{{ post.user.username }}</a>
-                                    
+
                                 </div>
-                            
+
                             <button class="post__more-options">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="6.5" cy="11.5" r="1.5" fill="var(--text-dark)"/>
@@ -58,7 +62,22 @@
 
                         <div class="post__content">
                             <div class="post__medias">
-                                <a href="{% url 'post-details' post.id %}"><img loading="lazy" class="post__media" src="{{ post.picture1.url }}" alt="Post Content" style="width: 700px; height: 348px; object-fit: cover;"></a>
+                                <a href="{% url 'post-details' post.id %}">
+<!--                                <img loading="lazy" class="post__media" src="{{ post.picture1.url }}" alt="Post Content" style="width: 700px; height: 348px; object-fit: cover;">-->
+                                    <img loading="lazy"
+                                         class="post__media"
+                                         src="{% imgproxy post.picture1.url 700 348 %}"
+                                         srcset="
+             {% imgproxy post.picture1.url 400 200 %} 400w,
+             {% imgproxy post.picture1.url 700 348 %} 700w,
+             {% imgproxy post.picture1.url 1200 600 %} 1200w
+         "
+                                         sizes="(max-width: 600px) 90vw, 700px"
+                                         alt="Post Content"
+                                         style="width: 700px; height: 348px; object-fit: cover;">
+
+
+                                </a>
 <!--                                <img loading="lazy" class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
 <!--                                <img loading="lazy" class="post__media" src="{% static 'assets1/insta-clone.png' %}" alt="Post Content">-->
                             </div>
@@ -132,7 +151,7 @@
                             <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
                                 <img loading="lazy" src="{{user.profile.image2.url}}" alt="User Picture">
                             </a>
-                            
+
                             <div class="side-menu__suggestion-info">
                                 {% if user.profile.first_name %}
                                 <a href="{% url 'profile' user %}">{{user.profile.first_name|title}} {{user.profile.last_name|title}}</a>
@@ -150,7 +169,7 @@
                         </div>
                         {% endif %}
                         {% endfor %}
-                        
+
                     </div>
                 </div>
             </div>
@@ -182,7 +201,7 @@
                                 <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
                                     <img loading="lazy" src="{{user.profile.image2.url}}" alt="User Picture">
                                 </a>
-                                
+
                                 <div class="side-menu__suggestion-info">
                                     {% if user.profile.first_name %}
                                     <a href="{% url 'profile' user %}">{{user.profile.first_name|title}} {{user.profile.last_name|title}}</a>
@@ -199,7 +218,7 @@
                                 {% endif %}
                             </div>
                         {% endfor %}
-                        
+
                     </div>
                 </div>
             </section>
