@@ -106,6 +106,7 @@ def add_posts(users, data, posts_per_user=10):
 
                 # Tworzymy post
                 with open(image_path, "rb") as f:
+                    #najmniejszy, średni, największy
                     image1, image2, image3 = convertImage(f)
                     post = Post.objects.create(
                         user=user,
@@ -114,6 +115,11 @@ def add_posts(users, data, posts_per_user=10):
                         likes=random.randint(0, 100)  # losowe polubienia
                     )
 
+                    post.picture.save(
+                        image_name,          # nazwa pliku
+                        image1,       # ContentFile
+                        save=True
+                    )
                 
                     post.picture1.save(
                         image_name,          # nazwa pliku
@@ -179,6 +185,7 @@ def make_admin():
         print("Admin user already exists")
 
 def main():
+    # return
     random.seed(42)
     delete_users()
     make_admin()

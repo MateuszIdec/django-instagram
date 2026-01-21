@@ -36,4 +36,5 @@ def convertImage(image):
         imgs.append(ContentFile(temp_io.getvalue(), name=new_name))
     
     # zwracamy dwa mniejsze obrazy (1280 i 640)
+    #najmniejszy, średni, największy
     return imgs[2], imgs[1], imgs[0]
