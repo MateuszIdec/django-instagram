@@ -18,7 +18,7 @@ def convertImage(image):
     imgs = []
 
     for r in resolutions:
-        crop_ratio = source_size_max / r
+        crop_ratio = r / source_size_max
         new_size = (int(source_size[0] * crop_ratio), int(source_size[1] * crop_ratio))
 
         new_img = img.copy()
