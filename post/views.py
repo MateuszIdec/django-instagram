@@ -23,13 +23,18 @@ def index(request):
     user = request.user
     user = request.user
     all_users = User.objects.all()
+
+
+
+
+
     follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
     not_followed = User.objects.exclude(
         following__follower=user
     ).exclude(id=user.id) 
 
-    
     profile = Profile.objects.all()
+
 
     posts = Stream.objects.filter(user=user)
     group_ids = []
@@ -40,13 +45,13 @@ def index(request):
         
     post_items = Post.objects.filter(id__in=group_ids).all().order_by('-posted')
 
-    query = request.GET.get('q')
-    if query:
-        users = User.objects.filter(Q(username__icontains=query))
+    # query = request.GET.get('q')
+    # if query:
+    #     users = User.objects.filter(Q(username__icontains=query))
 
-        paginator = Paginator(users, 6)
-        page_number = request.GET.get('page')
-        users_paginator = paginator.get_page(page_number)
+    #     paginator = Paginator(users, 6)
+    #     page_number = request.GET.get('page')
+    #     users_paginator = paginator.get_page(page_number)
 
 
     context = {

@@ -29,6 +29,30 @@ def get_data():
     return users
 
 
+def add_test_user():
+    firstName = "testUser"
+    lastName = "testUser"
+    bio = "testUser"
+    location = "testUser"
+
+    user, created = User.objects.get_or_create(
+            username=firstName,
+            email=firstName[:2]+lastName[:2]+"@example.com",
+            password="test",
+        )
+    print(f"User {user.username} created")
+    url = firstName[:2]+lastName[:2]+".com"
+    profile = Profile.objects.create(
+        user=user,
+        first_name = firstName,
+        last_name = lastName,
+        bio = bio,
+        location = location,
+        url = url
+    )
+
+    print(f"\n\n\nProfile for {user.username} created")
+
 def add_users(users_number, users):
     firstNames = users["firstNames"]
     lastNames = users["lastNames"]
@@ -59,6 +83,8 @@ def add_users(users_number, users):
         )
 
         print(f"Profile for {user.username} created")
+
+    add_test_user()
 
     print("✅ JSON seed completed")
     return users
@@ -185,7 +211,8 @@ def make_admin():
         print("Admin user already exists")
 
 def main():
-    # return
+
+    return
     random.seed(42)
     delete_users()
     make_admin()

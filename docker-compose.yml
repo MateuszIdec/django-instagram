@@ -39,6 +39,12 @@ services:
     depends_on:
       - web
         # condition: service_healthy
+    command: >
+      lighthouse http://web:8000
+      --config-path=/app/lighthouserc.json
+      --output=html
+      --output-path=/app/reports/report.html
+      --chrome-flags="--headless --no-sandbox"
     volumes:
       - ./lighthouse/lighthouserc.json:/app/lighthouserc.json
       - ./lighthouse/reports:/app/reports
